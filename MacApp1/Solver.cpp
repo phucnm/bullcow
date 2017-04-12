@@ -25,8 +25,11 @@ CowsAndBulls_Player::CowsAndBulls_Player() {
 }
 void CowsAndBulls_Player::play() { secret = createSecret(); guess(); }
 string CowsAndBulls_Player::guessANum(string prev, pair<int, int>& r) {
+    cout<<"Pool size before call clear" << pool.size() << endl;
     clearPool(prev, r);
-    return gimmeANumber();
+    string ret = gimmeANumber();
+    cout<<"Pool size after get random" << pool.size() << endl;
+    return ret;
 }
 void CowsAndBulls_Player::guess()
 {
@@ -45,17 +48,23 @@ void CowsAndBulls_Player::guess()
 
 void CowsAndBulls_Player::clearPool( string gs, pair<int, int>& r )
 {
+    cout<<"Pool size before clear" << pool.size() << endl;
     vector<string>::iterator pi = pool.begin();
     while( pi != pool.end() )
     {
-        if( removeIt( gs, ( *pi ), r ) ) pi = pool.erase( pi );
+        if( removeIt( gs, ( *pi ), r ) ) {
+            pi = pool.erase( pi );
+        }
         else  pi++;
     }
+    cout<<"Pool size after clear" << pool.size() << endl;
+    cout<<"Pool size after clear" << pool.size() << endl;
 }
 
 string CowsAndBulls_Player::gimmeANumber()
 {
     if( pool.empty() ) return "";
+    cout<<"Pool size when get random" << pool.size() << endl;
     return pool[rand() % pool.size()];
 }
 

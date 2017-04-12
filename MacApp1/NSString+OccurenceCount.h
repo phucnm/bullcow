@@ -10,4 +10,5 @@
 
 @interface NSString (CountString)
 - (NSInteger)countOccurencesOfString:(NSString*)searchString;
+-(BOOL) isEveryCharacterUnique;
 @end

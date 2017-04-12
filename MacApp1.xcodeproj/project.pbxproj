@@ -15,6 +15,7 @@
 		023B1BB01E9D3AB000F285E0 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 023B1BAF1E9D3AB000F285E0 /* GCDAsyncSocket.m */; };
 		023B1BBA1E9D45EE00F285E0 /* Solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 023B1BB81E9D45EE00F285E0 /* Solver.cpp */; };
 		023B1BBD1E9D4AA000F285E0 /* NSString+OccurenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 023B1BBC1E9D4AA000F285E0 /* NSString+OccurenceCount.m */; };
+		FD6619291E9DDCD7006E7E30 /* BCSolver.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6619281E9DDCD7006E7E30 /* BCSolver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		023B1BB91E9D45EE00F285E0 /* Solver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Solver.hpp; sourceTree = "<group>"; };
 		023B1BBB1E9D4AA000F285E0 /* NSString+OccurenceCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OccurenceCount.h"; sourceTree = "<group>"; };
 		023B1BBC1E9D4AA000F285E0 /* NSString+OccurenceCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OccurenceCount.m"; sourceTree = "<group>"; };
+		FD6619271E9DDCD7006E7E30 /* BCSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCSolver.h; sourceTree = "<group>"; };
+		FD6619281E9DDCD7006E7E30 /* BCSolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCSolver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +74,8 @@
 				023B1B921E9D282200F285E0 /* AppDelegate.m */,
 				023B1B971E9D282200F285E0 /* ViewController.h */,
 				023B1B981E9D282200F285E0 /* ViewController.mm */,
+				FD6619271E9DDCD7006E7E30 /* BCSolver.h */,
+				FD6619281E9DDCD7006E7E30 /* BCSolver.m */,
 				023B1BBB1E9D4AA000F285E0 /* NSString+OccurenceCount.h */,
 				023B1BBC1E9D4AA000F285E0 /* NSString+OccurenceCount.m */,
 				023B1BB81E9D45EE00F285E0 /* Solver.cpp */,
@@ -167,6 +172,7 @@
 				023B1B991E9D282200F285E0 /* ViewController.mm in Sources */,
 				023B1BBD1E9D4AA000F285E0 /* NSString+OccurenceCount.m in Sources */,
 				023B1B961E9D282200F285E0 /* main.m in Sources */,
+				FD6619291E9DDCD7006E7E30 /* BCSolver.m in Sources */,
 				023B1B931E9D282200F285E0 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

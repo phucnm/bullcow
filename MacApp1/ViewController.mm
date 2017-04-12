@@ -11,13 +11,15 @@
 #import "GCDAsyncSocket.h"
 #include "Solver.hpp"
 #import "NSString+OccurenceCount.h"
+#import "BCSolver.h"
 
 @interface ViewController() <GCDAsyncSocketDelegate>
 
 @property (strong, nonatomic) GCDAsyncSocket *socket;
 @property CowsAndBulls_Player cb;
+@property (strong, nonatomic) BCSolver *bc;
 @property (nonatomic) BOOL isFirst;
-@property std::string prevGs;
+@property (nonatomic, strong) NSString *prevGs;
 @end
 
 @implementation ViewController
@@ -25,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isFirst = YES;
+    self.bc = [[BCSolver alloc] init];
     self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
     [self.socket connectToHost:@"bullandcow-challenge.framgia.vn" onPort:2015 error:nil];
     [self.socket readDataWithTimeout:-1 tag:0];
@@ -44,7 +47,7 @@
     NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSLog(@"From server: %@", string);
     if ([string containsString:@"Correct"]) {
-        return;
+        self.isFirst = YES;
     }
     NSString *gs;
     if (![string containsString:@"answer"]) {
@@ -52,15 +55,15 @@
         return;
     }
     if (self.isFirst) {
-        self.prevGs = self.cb.gimmeANumber();
-        gs = [NSString stringWithCString:self.prevGs.c_str() encoding:NSASCIIStringEncoding];
+        self.prevGs = [self.bc giveAGuess];
+        gs = [NSString stringWithString:self.prevGs];
         self.isFirst = NO;
     } else {
-        pair<int, int> res;
-        res.first = (int)[string countOccurencesOfString:@"bull"];
-        res.second = (int)[string countOccurencesOfString:@"cow"];
-        self.prevGs = self.cb.guessANum(self.prevGs, res);
-        gs = [NSString stringWithCString:self.prevGs.c_str() encoding:NSASCIIStringEncoding];
+        
+        int bull = (int)[string countOccurencesOfString:@"bull"];
+        int cow = (int)[string countOccurencesOfString:@"cow"];
+        self.prevGs = [self.bc giveAGuess:self.prevGs bulls:bull cows:cow];
+        gs = [NSString stringWithString:self.prevGs];
     }
     NSLog(@"Guessed %@", gs);
     gs = [gs stringByAppendingString:@"\n"];
