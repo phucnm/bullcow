@@ -47,6 +47,10 @@
         return;
     }
     NSString *gs;
+    if (![string containsString:@"answer"]) {
+        [self.socket readDataWithTimeout:-1 tag:0];
+        return;
+    }
     if (self.isFirst) {
         self.prevGs = self.cb.gimmeANumber();
         gs = [NSString stringWithCString:self.prevGs.c_str() encoding:NSASCIIStringEncoding];

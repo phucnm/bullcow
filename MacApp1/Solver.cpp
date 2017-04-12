@@ -20,6 +20,7 @@ using namespace std;
 
 //--------------------------------------------------------------------------------------------------
 CowsAndBulls_Player::CowsAndBulls_Player() {
+    srand (time(NULL));
     fillPool();
 }
 void CowsAndBulls_Player::play() { secret = createSecret(); guess(); }
