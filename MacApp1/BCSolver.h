@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface BCSolver : NSObject
-- (instancetype)init;
+- (instancetype)initWithDigits:(int)digits;
 - (NSString*)giveAGuess;
 - (NSString*)giveAGuess:(NSString*)prev bulls:(int)bull cows:(int)cow;
 

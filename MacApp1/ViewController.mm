@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isFirst = YES;
-    self.bc = [[BCSolver alloc] init];
+//    self.bc = [[BCSolver alloc] init];
     self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
     [self.socket connectToHost:@"bullandcow-challenge.framgia.vn" onPort:2015 error:nil];
     [self.socket readDataWithTimeout:-1 tag:0];
@@ -43,6 +43,8 @@
     NSLog(@"Did connect to %@", sock);
 }
 
+int bull = 0, cow = 0;
+
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
     NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSLog(@"From server: %@", string);
@@ -50,18 +52,34 @@
         self.isFirst = YES;
     }
     NSString *gs;
-    if (![string containsString:@"answer"]) {
+
+    if ([string containsString:@"bull"] || [string containsString:@"cow"] || [string containsString:@"nothing"]) {
+        bull = (int)[string countOccurencesOfString:@"bull"];
+        cow = (int)[string countOccurencesOfString:@"cow"];
+        if (![string containsString:@"answer"]) {
+            [self.socket readDataWithTimeout:-1 tag:0];
+            return;
+        }
+    } else if (![string containsString:@"answer"]) {
         [self.socket readDataWithTimeout:-1 tag:0];
         return;
     }
     if (self.isFirst) {
+        if ([string containsString:@"4-digit"]) {
+            self.bc = [[BCSolver alloc] initWithDigits:4];
+        } else if ([string containsString:@"5-digit"]) {
+            self.bc = [[BCSolver alloc] initWithDigits:5];
+        } else if ([string containsString:@"6-digit"]) {
+            self.bc = [[BCSolver alloc] initWithDigits:6];
+        } else if ([string containsString:@"7-digit"]) {
+            self.bc = [[BCSolver alloc] initWithDigits:7];
+        } else if ([string containsString:@"8-digit"]) {
+            self.bc = [[BCSolver alloc] initWithDigits:8];
+        }
         self.prevGs = [self.bc giveAGuess];
         gs = [NSString stringWithString:self.prevGs];
         self.isFirst = NO;
     } else {
-        
-        int bull = (int)[string countOccurencesOfString:@"bull"];
-        int cow = (int)[string countOccurencesOfString:@"cow"];
         self.prevGs = [self.bc giveAGuess:self.prevGs bulls:bull cows:cow];
         gs = [NSString stringWithString:self.prevGs];
     }
